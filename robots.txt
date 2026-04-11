@@ -1,0 +1,5 @@
+# https://ashutoshsoni.com
+User-agent: *
+Allow: /
+
+Sitemap: https://ashutoshsoni.com/sitemap.xml

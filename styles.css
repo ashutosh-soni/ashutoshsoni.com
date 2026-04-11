@@ -577,6 +577,11 @@ button:focus-visible,
   margin-inline: auto;
 }
 
+.profile-card picture {
+  display: block;
+  width: 100%;
+}
+
 .profile-card__img {
   width: 100%;
   height: auto;
