@@ -6,6 +6,7 @@
 :root {
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-name: "Playfair Display", Georgia, "Times New Roman", serif;
 
   --space-xs: 0.35rem;
   --space-sm: 0.75rem;
@@ -36,6 +37,10 @@
   --accent-glow: rgba(139, 105, 20, 0.2);
   --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 15%, rgba(139, 105, 20, 0.1), transparent 55%),
     radial-gradient(ellipse 60% 50% at 10% 85%, rgba(99, 102, 241, 0.06), transparent 50%);
+  --gradient-page: radial-gradient(ellipse 110% 55% at 8% -8%, rgba(139, 105, 20, 0.12), transparent 52%),
+    radial-gradient(ellipse 90% 50% at 92% 8%, rgba(99, 102, 241, 0.07), transparent 48%),
+    radial-gradient(ellipse 85% 45% at 50% 102%, rgba(139, 105, 20, 0.08), transparent 55%),
+    linear-gradient(165deg, rgba(248, 247, 244, 0.97) 0%, var(--bg-base) 38%, rgba(240, 238, 234, 0.85) 100%);
   --shadow-card: 0 20px 48px -24px rgba(26, 26, 31, 0.1);
   --code-bg: rgba(26, 26, 31, 0.06);
 }
@@ -55,6 +60,10 @@
   --accent-glow: rgba(201, 169, 98, 0.35);
   --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 20%, rgba(201, 169, 98, 0.12), transparent 55%),
     radial-gradient(ellipse 60% 50% at 10% 80%, rgba(99, 102, 241, 0.08), transparent 50%);
+  --gradient-page: radial-gradient(ellipse 100% 50% at 12% -5%, rgba(201, 169, 98, 0.14), transparent 50%),
+    radial-gradient(ellipse 85% 45% at 88% 12%, rgba(99, 102, 241, 0.1), transparent 50%),
+    radial-gradient(ellipse 75% 40% at 48% 108%, rgba(201, 169, 98, 0.09), transparent 55%),
+    linear-gradient(168deg, rgba(14, 14, 18, 0.98) 0%, var(--bg-base) 42%, rgba(18, 18, 26, 0.95) 100%);
   --shadow-card: 0 24px 48px -24px rgba(0, 0, 0, 0.6);
   --code-bg: rgba(255, 255, 255, 0.06);
 }
@@ -67,6 +76,7 @@
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -77,13 +87,18 @@ html {
 
 body {
   margin: 0;
+  min-height: 100%;
   font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.65;
-  background: var(--bg-base);
   color: var(--text-primary);
+  background-color: var(--bg-base);
+  background-image: var(--gradient-page);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
-  transition: background 0.35s var(--ease-out), color 0.35s var(--ease-out);
+  transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
   overflow-x: clip;
   text-rendering: optimizeLegibility;
 }
@@ -91,6 +106,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   body {
     transition: none;
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 1024px) {
+  body {
+    background-attachment: scroll;
   }
 }
 
@@ -199,11 +221,12 @@ button:focus-visible,
 }
 
 .nav__brand {
-  font-family: var(--font-display);
+  font-family: var(--font-name);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.14em;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .nav__brand:hover {
@@ -445,12 +468,13 @@ button:focus-visible,
 }
 
 .hero__title {
-  font-family: var(--font-display);
+  font-family: var(--font-name);
   font-size: clamp(2.75rem, 6vw, 4.25rem);
-  font-weight: 400;
-  line-height: 1.05;
+  font-weight: 600;
+  line-height: 1.08;
   margin: 0 0 var(--space-sm);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
+  font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
 }
 
 .hero__role {
