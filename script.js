@@ -168,6 +168,75 @@
     if (y) y.textContent = String(new Date().getFullYear());
   }
 
+  function initHeroRoleTyping() {
+    var el = document.getElementById("heroRoleTyping");
+    if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = "Senior Software Engineer";
+      return;
+    }
+
+    var phrases = ["Making apps that change lives", "Software Architect", "LLM Engineer"];
+    var phraseIdx = 0;
+    var charIdx = 0;
+    var direction = 1; // 1 typing, -1 deleting
+    var timer = null;
+
+    function render(text) {
+      // keep a stable line box height even when "empty"
+      el.textContent = text && text.length ? text : "\u00A0";
+    }
+
+    function setNextTick(ms) {
+      timer = window.setTimeout(tick, ms);
+    }
+
+    function tick() {
+      var phrase = phrases[phraseIdx];
+
+      if (direction === 1) {
+        charIdx = Math.min(phrase.length, charIdx + 1);
+        render(phrase.slice(0, charIdx));
+
+        if (charIdx >= phrase.length) {
+          direction = -1;
+          setNextTick(2000);
+          return;
+        }
+
+        setNextTick(45);
+        return;
+      }
+
+      // deleting
+      charIdx = Math.max(0, charIdx - 1);
+      render(phrase.slice(0, charIdx));
+
+      if (charIdx <= 0) {
+        direction = 1;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        setNextTick(250);
+        return;
+      }
+
+      setNextTick(24);
+    }
+
+    // start
+    render("");
+    setNextTick(250);
+
+    // best-effort cleanup
+    window.addEventListener(
+      "beforeunload",
+      function () {
+        if (timer) window.clearTimeout(timer);
+      },
+      { once: true }
+    );
+  }
+
   function initHeaderShadow() {
     var header = document.querySelector(".site-header");
     if (!header) return;
@@ -199,5 +268,6 @@
   initMobileNav();
   initReveal();
   initYear();
+  initHeroRoleTyping();
   initHeaderShadow();
 })();

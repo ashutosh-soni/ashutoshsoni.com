@@ -5,8 +5,8 @@
 
 :root {
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-name: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-display: "Sora", system-ui, -apple-system, sans-serif;
+  --font-name: "Sora", system-ui, -apple-system, sans-serif;
 
   --space-xs: 0.35rem;
   --space-sm: 0.75rem;
@@ -72,6 +72,18 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 html {
@@ -226,8 +238,11 @@ button:focus-visible,
   justify-content: center;
   width: 2.6rem;
   height: 2.6rem;
+}
+
+[data-theme="dark"] .nav__brand {
+  background: #ffffff;
   border-radius: var(--radius-full);
-  overflow: hidden;
 }
 
 .nav__brand:hover {
@@ -236,12 +251,8 @@ button:focus-visible,
 
 .nav__brand-logo {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
-  object-position: center 28%;
-  transform: scale(1.12);
-  transform-origin: center;
 }
 
 .nav__links {
@@ -483,18 +494,52 @@ button:focus-visible,
   font-size: clamp(2.75rem, 6vw, 4.25rem);
   font-weight: 600;
   line-height: 1.08;
-  margin: 0 0 var(--space-sm);
+  margin: 0 0 0.35rem;
   letter-spacing: -0.015em;
   font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .hero__role {
   font-size: 0.8125rem;
   font-weight: 600;
+  line-height: 1.2;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin: 0 0 var(--space-sm);
+  margin: 0 0 1.8rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  min-height: 1.2em;
+}
+
+.typing-caret {
+  width: 0.75ch;
+  height: 1em;
+  border-left: 2px solid currentColor;
+  transform: translateY(0.1em);
+  opacity: 0.9;
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-caret {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .hero__meta {
@@ -1043,6 +1088,18 @@ button:focus-visible,
   flex-wrap: wrap;
 }
 
+.contact__brand {
+  margin-top: var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.contact__brand-image {
+  width: min(100%, 320px);
+  height: auto;
+  opacity: 0.88;
+}
+
 /* ----- Footer ----- */
 
 .site-footer {
@@ -1152,6 +1209,12 @@ button,
   .hero__title {
     font-size: clamp(2.15rem, 10vw, 3.25rem);
     line-height: 1.08;
+  }
+
+  @media (max-width: 420px) {
+    .hero__title {
+      font-size: clamp(1.9rem, 9.2vw, 3rem);
+    }
   }
 
   .hero__intro {
